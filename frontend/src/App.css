@@ -1,0 +1,239 @@
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+}
+
+.main-content {
+  padding: 2rem 0;
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(15px) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Force card styling */
+.card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-body {
+  background: transparent !important;
+}
+
+/* Force form control visibility */
+.form-control {
+  background: white !important;
+  color: #333333 !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+.form-control:focus {
+  background: white !important;
+  color: #333333 !important;
+  border-color: #3498db !important;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15) !important;
+}
+
+.form-control::placeholder {
+  color: #6c757d !important;
+  opacity: 0.7 !important;
+}
+
+.form-select {
+  background: white !important;
+  color: #333333 !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+.form-select:focus {
+  background: white !important;
+  color: #333333 !important;
+  border-color: #3498db !important;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15) !important;
+}
+
+.input-group-text {
+  background: #f8f9fa !important;
+  border: 1px solid #dee2e6 !important;
+  color: #495057 !important;
+}
+
+/* Force form labels and check labels to be dark */
+.form-label {
+  color: #333333 !important;
+  font-weight: 600 !important;
+}
+
+.form-check-label {
+  color: #333333 !important;
+  font-weight: 600 !important;
+}
+
+.form-check-input:checked {
+  background-color: #3498db !important;
+  border-color: #3498db !important;
+}
+
+.form-check-input:focus {
+  border-color: #3498db !important;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15) !important;
+}
+
+/* Ensure stats cards are visible and properly styled */
+.stats-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  min-height: 150px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.stats-card * {
+  color: white !important;
+}
+
+.stats-card h3, .stats-card h4 {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.5rem !important;
+  color: white !important;
+}
+
+.stats-card p, .stats-card small {
+  color: white !important;
+  opacity: 0.9 !important;
+}
+
+/* Enhanced News Card Elements */
+.news-card .card-title {
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  line-height: 1.4 !important;
+  margin-bottom: 1rem !important;
+  color: #2c3e50 !important;
+  transition: all 0.3s ease !important;
+}
+
+.news-card .card-title a {
+  color: #2c3e50 !important;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  position: relative !important;
+}
+
+.news-card .card-title a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transition: width 0.3s ease;
+}
+
+.news-card:hover .card-title a::after {
+  width: 100%;
+}
+
+.news-card:hover .card-title a {
+  color: #667eea !important;
+  transform: translateY(-1px) !important;
+}
+
+.news-card .card-text {
+  color: #6c757d !important;
+  line-height: 1.6 !important;
+  font-size: 0.95rem !important;
+}
+
+/* Enhanced buttons in news cards */
+.news-card .btn {
+  border-radius: 25px !important;
+  padding: 0.5rem 1.2rem !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.news-card .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.news-card .btn:hover::before {
+  left: 100%;
+}
+
+.news-card .btn-outline-primary {
+  border: 2px solid #667eea !important;
+  color: #667eea !important;
+  background: rgba(102, 126, 234, 0.1) !important;
+}
+
+.news-card .btn-outline-primary:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-color: #667eea !important;
+  color: white !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4) !important;
+}
+
+.news-card .btn-outline-secondary {
+  border: 2px solid #6c757d !important;
+  color: #6c757d !important;
+  background: rgba(108, 117, 125, 0.1) !important;
+}
+
+.news-card .btn-outline-secondary:hover {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+  border-color: #6c757d !important;
+  color: white !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(108, 117, 125, 0.4) !important;
+}
+
+.news-card .btn-outline-info {
+  border: 2px solid #17a2b8 !important;
+  color: #17a2b8 !important;
+  background: rgba(23, 162, 184, 0.1) !important;
+}
+
+.news-card .btn-outline-info:hover {
+  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+  border-color: #17a2b8 !important;
+  color: white !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(23, 162, 184, 0.4) !important;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem 0;
+  }
+  
+  .main-container {
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 12px !important;
+  }
+}

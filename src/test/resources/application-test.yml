@@ -1,0 +1,36 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: news-search-microservice-test
+  
+  profiles:
+    active: test
+    
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=100,expireAfterWrite=10m
+
+# Test configuration
+news-api:
+  base-url: http://localhost:8089
+  api-key: test-api-key
+  timeout: 5s
+  retry-attempts: 1
+  
+offline-mode:
+  enabled: true
+  cache-duration: 1h
+  
+default-interval:
+  value: 12
+  unit: hours
+
+# Logging for tests
+logging:
+  level:
+    com.newsservice: DEBUG
+    org.springframework.web: WARN
+    org.springframework.security: WARN

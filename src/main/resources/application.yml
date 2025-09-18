@@ -1,0 +1,116 @@
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api/v1
+  compression:
+    enabled: true
+  http2:
+    enabled: true
+
+spring:
+  application:
+    name: news-search-microservice
+  
+  profiles:
+    active: dev
+    
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=1h
+      
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+# Management endpoints for monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# OpenAPI Documentation
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+  info:
+    title: News Search Microservice API
+    description: Production-ready microservice for searching and grouping news articles
+    version: 1.0.0
+    contact:
+      name: News Service Team
+      email: support@newsservice.com
+
+# Logging configuration
+logging:
+  level:
+    com.newsservice: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+      
+news-api:
+  base-url: https://newsapi.org/v2
+  api-key: ${NEWS_API_KEY:ccaf5d41cc5140c984818c344edcc14d}
+  timeout: 30s
+  retry-attempts: 3
+  
+offline-mode:
+  enabled: false
+  cache-duration: 24h
+  
+default-interval:
+  value: 12
+  unit: hours
+
+---
+# Production Profile  
+spring:
+  config:
+    activate:
+      on-profile: prod
+      
+news-api:
+  base-url: https://newsapi.org/v2
+  api-key: ${NEWS_API_KEY}
+  timeout: 10s
+  retry-attempts: 2
+  
+offline-mode:
+  enabled: true
+  cache-duration: 6h
+  
+default-interval:
+  value: 12
+  unit: hours
+
+logging:
+  level:
+    com.newsservice: WARN
+    org.springframework.web: WARN
+    org.springframework.security: WARN

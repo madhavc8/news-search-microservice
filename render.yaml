@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: news-search-microservice
+    env: java
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/news-search-microservice-1.0.0.jar
+    plan: free
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NEWS_API_KEY
+        value: ccaf5d41cc5140c984818c344edcc14d
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: JAVA_OPTS
+        value: "-Xmx512m -Xms256m"
+      - key: SERVER_PORT
+        value: 10000

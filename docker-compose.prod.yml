@@ -1,0 +1,149 @@
+version: '3.8'
+
+services:
+  news-search-microservice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: news-search-microservice:latest
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    ports:
+      - "8080-8081:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - NEWS_API_KEY=${NEWS_API_KEY}
+      - JAVA_OPTS=-Xmx512m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200
+      - LOGGING_LEVEL_COM_NEWSSERVICE=WARN
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health,info,metrics,prometheus
+    volumes:
+      - ./logs/prod:/app/logs
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - news-prod-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/news/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    labels:
+      - "environment=production"
+      - "service=news-search-microservice"
+      - "version=1.0.0"
+
+  # Production Frontend
+  news-frontend-prod:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    image: news-frontend:latest
+    deploy:
+      replicas: 2
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_API_BASE_URL=http://news-search-microservice:8080/api/v1
+    depends_on:
+      - news-search-microservice
+    networks:
+      - news-prod-network
+    restart: unless-stopped
+    volumes:
+      - ./nginx/prod.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+
+  # Load Balancer
+  nginx-lb:
+    image: nginx:alpine
+    container_name: news-load-balancer
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/load-balancer.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - news-search-microservice
+    networks:
+      - news-prod-network
+    restart: unless-stopped
+    labels:
+      - "service=load-balancer"
+
+  # Redis for session management and caching
+  redis:
+    image: redis:7-alpine
+    container_name: news-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - news-prod-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-newsredis123}
+
+  # Monitoring - Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: news-prometheus-prod
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - news-prod-network
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+  # Monitoring - Grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: news-grafana-prod
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - news-prod-network
+    restart: unless-stopped
+
+networks:
+  news-prod-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  redis-data:
+  prometheus-data:
+  grafana-data:

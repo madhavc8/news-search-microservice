@@ -1,0 +1,628 @@
+{
+  "info": {
+    "name": "News Search Microservice - Complete Collection",
+    "description": "Complete Postman collection for testing both the News Search Microservice and NewsAPI.org directly",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "microservice_base_url",
+      "value": "http://localhost:8080/api/v1/news",
+      "type": "string"
+    },
+    {
+      "key": "newsapi_base_url",
+      "value": "https://newsapi.org/v2",
+      "type": "string"
+    },
+    {
+      "key": "newsapi_key",
+      "value": "ccaf5d41cc5140c984818c344edcc14d",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "News Search Microservice",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{microservice_base_url}}/health",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["health"]
+            },
+            "description": "Check the health status of the microservice and external dependencies"
+          },
+          "response": []
+        },
+        {
+          "name": "API Information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{microservice_base_url}}/info",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["info"]
+            },
+            "description": "Get information about the API endpoints and supported parameters"
+          },
+          "response": []
+        },
+        {
+          "name": "Search News - Basic",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{microservice_base_url}}/search?keyword=apple",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "apple",
+                  "description": "Search keyword"
+                }
+              ]
+            },
+            "description": "Basic news search with default 12-hour intervals"
+          },
+          "response": []
+        },
+        {
+          "name": "Search News - Custom Interval",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{microservice_base_url}}/search?keyword=technology&intervalValue=6&intervalUnit=hours",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "technology",
+                  "description": "Search keyword"
+                },
+                {
+                  "key": "intervalValue",
+                  "value": "6",
+                  "description": "Number of time units"
+                },
+                {
+                  "key": "intervalUnit",
+                  "value": "hours",
+                  "description": "Time unit (minutes, hours, days, weeks, months, years)"
+                }
+              ]
+            },
+            "description": "Search news with custom 6-hour intervals"
+          },
+          "response": []
+        },
+        {
+          "name": "Search News - Days Interval",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{microservice_base_url}}/search?keyword=bitcoin&intervalValue=2&intervalUnit=days",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "bitcoin",
+                  "description": "Search keyword"
+                },
+                {
+                  "key": "intervalValue",
+                  "value": "2",
+                  "description": "Number of time units"
+                },
+                {
+                  "key": "intervalUnit",
+                  "value": "days",
+                  "description": "Time unit"
+                }
+              ]
+            },
+            "description": "Search news grouped by 2-day intervals"
+          },
+          "response": []
+        },
+        {
+          "name": "Search News - Offline Mode",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{microservice_base_url}}/search?keyword=sports&offlineMode=true",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["search"],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "sports",
+                  "description": "Search keyword"
+                },
+                {
+                  "key": "offlineMode",
+                  "value": "true",
+                  "description": "Force offline mode"
+                }
+              ]
+            },
+            "description": "Search news in offline mode using cached data"
+          },
+          "response": []
+        },
+        {
+          "name": "Search News - POST Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"keyword\": \"finance\",\n  \"intervalValue\": 24,\n  \"intervalUnit\": \"HOURS\",\n  \"offlineMode\": false\n}"
+            },
+            "url": {
+              "raw": "{{microservice_base_url}}/search",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["search"]
+            },
+            "description": "Search news using POST request with JSON body"
+          },
+          "response": []
+        },
+        {
+          "name": "Cache Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{microservice_base_url}}/cache/stats",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["cache", "stats"]
+            },
+            "description": "Get cache statistics and information"
+          },
+          "response": []
+        },
+        {
+          "name": "Clear Cache",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{microservice_base_url}}/cache",
+              "host": ["{{microservice_base_url}}"],
+              "path": ["cache"]
+            },
+            "description": "Clear all cached search results"
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints for testing the News Search Microservice"
+    },
+    {
+      "name": "NewsAPI.org Direct Testing",
+      "item": [
+        {
+          "name": "API Key Validation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{newsapi_base_url}}/top-headlines?country=us&pageSize=1&apiKey={{newsapi_key}}",
+              "host": ["{{newsapi_base_url}}"],
+              "path": ["top-headlines"],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "us",
+                  "description": "Country code"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "1",
+                  "description": "Number of results"
+                },
+                {
+                  "key": "apiKey",
+                  "value": "{{newsapi_key}}",
+                  "description": "NewsAPI key"
+                }
+              ]
+            },
+            "description": "Simple request to validate API key"
+          },
+          "response": []
+        },
+        {
+          "name": "Everything - Basic Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{newsapi_base_url}}/everything?q=apple&apiKey={{newsapi_key}}",
+              "host": ["{{newsapi_base_url}}"],
+              "path": ["everything"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "apple",
+                  "description": "Search keyword"
+                },
+                {
+                  "key": "apiKey",
+                  "value": "{{newsapi_key}}",
+                  "description": "NewsAPI key"
+                }
+              ]
+            },
+            "description": "Basic search using Everything endpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "Everything - With Date Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{newsapi_base_url}}/everything?q=technology&from=2025-09-17&to=2025-09-18&sortBy=publishedAt&apiKey={{newsapi_key}}",
+              "host": ["{{newsapi_base_url}}"],
+              "path": ["everything"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "technology",
+                  "description": "Search keyword"
+                },
+                {
+                  "key": "from",
+                  "value": "2025-09-17",
+                  "description": "Start date (YYYY-MM-DD)"
+                },
+                {
+                  "key": "to",
+                  "value": "2025-09-18",
+                  "description": "End date (YYYY-MM-DD)"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "publishedAt",
+                  "description": "Sort order"
+                },
+                {
+                  "key": "apiKey",
+                  "value": "{{newsapi_key}}",
+                  "description": "NewsAPI key"
+                }
+              ]
+            },
+            "description": "Search with date range and sorting"
+          },
+          "response": []
+        },
+        {
+          "name": "Everything - Pagination",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{newsapi_base_url}}/everything?q=bitcoin&page=1&pageSize=20&sortBy=publishedAt&apiKey={{newsapi_key}}",
+              "host": ["{{newsapi_base_url}}"],
+              "path": ["everything"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "bitcoin",
+                  "description": "Search keyword"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Results per page"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "publishedAt",
+                  "description": "Sort order"
+                },
+                {
+                  "key": "apiKey",
+                  "value": "{{newsapi_key}}",
+                  "description": "NewsAPI key"
+                }
+              ]
+            },
+            "description": "Search with pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "Everything - Specific Domains",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{newsapi_base_url}}/everything?q=apple&domains=bbc.co.uk,cnn.com&apiKey={{newsapi_key}}",
+              "host": ["{{newsapi_base_url}}"],
+              "path": ["everything"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "apple",
+                  "description": "Search keyword"
+                },
+                {
+                  "key": "domains",
+                  "value": "bbc.co.uk,cnn.com",
+                  "description": "Comma-separated domains"
+                },
+                {
+                  "key": "apiKey",
+                  "value": "{{newsapi_key}}",
+                  "description": "NewsAPI key"
+                }
+              ]
+            },
+            "description": "Search from specific news domains"
+          },
+          "response": []
+        },
+        {
+          "name": "Top Headlines - US",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{newsapi_base_url}}/top-headlines?country=us&pageSize=10&apiKey={{newsapi_key}}",
+              "host": ["{{newsapi_base_url}}"],
+              "path": ["top-headlines"],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "us",
+                  "description": "Country code"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Number of results"
+                },
+                {
+                  "key": "apiKey",
+                  "value": "{{newsapi_key}}",
+                  "description": "NewsAPI key"
+                }
+              ]
+            },
+            "description": "Get top headlines for US"
+          },
+          "response": []
+        },
+        {
+          "name": "Top Headlines - By Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{newsapi_base_url}}/top-headlines?country=us&category=technology&pageSize=10&apiKey={{newsapi_key}}",
+              "host": ["{{newsapi_base_url}}"],
+              "path": ["top-headlines"],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "us",
+                  "description": "Country code"
+                },
+                {
+                  "key": "category",
+                  "value": "technology",
+                  "description": "Category (business, entertainment, general, health, science, sports, technology)"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Number of results"
+                },
+                {
+                  "key": "apiKey",
+                  "value": "{{newsapi_key}}",
+                  "description": "NewsAPI key"
+                }
+              ]
+            },
+            "description": "Get top headlines by category"
+          },
+          "response": []
+        },
+        {
+          "name": "Sources",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{newsapi_base_url}}/sources?language=en&country=us&apiKey={{newsapi_key}}",
+              "host": ["{{newsapi_base_url}}"],
+              "path": ["sources"],
+              "query": [
+                {
+                  "key": "language",
+                  "value": "en",
+                  "description": "Language code"
+                },
+                {
+                  "key": "country",
+                  "value": "us",
+                  "description": "Country code"
+                },
+                {
+                  "key": "apiKey",
+                  "value": "{{newsapi_key}}",
+                  "description": "NewsAPI key"
+                }
+              ]
+            },
+            "description": "Get available news sources"
+          },
+          "response": []
+        }
+      ],
+      "description": "Direct testing of NewsAPI.org endpoints"
+    },
+    {
+      "name": "Test Scenarios",
+      "item": [
+        {
+          "name": "Compare Microservice vs Direct API",
+          "item": [
+            {
+              "name": "Microservice - Apple News",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{microservice_base_url}}/search?keyword=apple&intervalValue=12&intervalUnit=hours",
+                  "host": ["{{microservice_base_url}}"],
+                  "path": ["search"],
+                  "query": [
+                    {
+                      "key": "keyword",
+                      "value": "apple"
+                    },
+                    {
+                      "key": "intervalValue",
+                      "value": "12"
+                    },
+                    {
+                      "key": "intervalUnit",
+                      "value": "hours"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Direct API - Apple News",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{newsapi_base_url}}/everything?q=apple&sortBy=publishedAt&pageSize=50&apiKey={{newsapi_key}}",
+                  "host": ["{{newsapi_base_url}}"],
+                  "path": ["everything"],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "apple"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "publishedAt"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "{{newsapi_key}}"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Error Testing",
+          "item": [
+            {
+              "name": "Invalid Keyword (Empty)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{microservice_base_url}}/search?keyword=",
+                  "host": ["{{microservice_base_url}}"],
+                  "path": ["search"],
+                  "query": [
+                    {
+                      "key": "keyword",
+                      "value": ""
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Invalid Interval Unit",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{microservice_base_url}}/search?keyword=apple&intervalUnit=invalid",
+                  "host": ["{{microservice_base_url}}"],
+                  "path": ["search"],
+                  "query": [
+                    {
+                      "key": "keyword",
+                      "value": "apple"
+                    },
+                    {
+                      "key": "intervalUnit",
+                      "value": "invalid"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Invalid API Key (Direct)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{newsapi_base_url}}/everything?q=apple&apiKey=invalid-key",
+                  "host": ["{{newsapi_base_url}}"],
+                  "path": ["everything"],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "apple"
+                    },
+                    {
+                      "key": "apiKey",
+                      "value": "invalid-key"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
