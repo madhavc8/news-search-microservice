@@ -8,8 +8,7 @@ import {
   faShield,
   faCloud,
   faCode,
-  faUsers,
-  faExternalLinkAlt
+  faUsers
 } from '@fortawesome/free-solid-svg-icons';
 
 const About = () => {

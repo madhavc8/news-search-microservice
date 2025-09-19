@@ -7,7 +7,6 @@ import {
   faUser, 
   faCalendarAlt,
   faEye,
-  faCopy,
   faCheck
 } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
