@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
+import { Card, Button, Alert } from 'react-bootstrap';
 import { useQuery } from 'react-query';
-import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faSearch, 
-  faClock, 
-  faCalendar, 
-  faToggleOn, 
   faNewspaper,
-  faLayerGroup,
   faServer
 } from '@fortawesome/free-solid-svg-icons';
-import debounce from 'lodash.debounce';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 import LoadingSpinner from './LoadingSpinner';

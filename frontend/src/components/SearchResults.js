@@ -3,7 +3,6 @@ import { Row, Col, Card, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faNewspaper, 
-  faLayerGroup, 
   faClock, 
   faServer,
   faCalendarAlt
@@ -20,7 +19,6 @@ const SearchResults = ({ data }) => {
     fromCache,
     totalArticles,
     intervalGroups,
-    status,
     message
   } = data;
 

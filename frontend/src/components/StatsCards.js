@@ -5,7 +5,6 @@ import {
   faNewspaper, 
   faLayerGroup, 
   faClock, 
-  faServer,
   faWifi,
   faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
