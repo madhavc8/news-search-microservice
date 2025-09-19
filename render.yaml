@@ -5,6 +5,7 @@ services:
     buildCommand: mvn clean package -DskipTests
     startCommand: java -jar target/news-search-microservice-1.0.0.jar
     plan: free
+    dockerfilePath: ""
     envVars:
       - key: PORT
         value: 10000
