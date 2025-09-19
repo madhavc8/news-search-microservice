@@ -46,13 +46,6 @@ public class SecurityConfiguration {
                     .includeSubDomains(true)
                 )
                 .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
-                .addHeaderWriter((request, response) -> {
-                    response.setHeader("X-Content-Type-Options", "nosniff");
-                    response.setHeader("X-XSS-Protection", "1; mode=block");
-                    response.setHeader("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
-                    response.setHeader("Pragma", "no-cache");
-                    response.setHeader("Expires", "0");
-                })
             );
 
         return http.build();
