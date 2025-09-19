@@ -9,6 +9,7 @@ console.log('🌍 Environment variables:', {
   NODE_ENV: process.env.NODE_ENV,
   REACT_APP_API_BASE_URL: process.env.REACT_APP_API_BASE_URL
 });
+console.log('🔍 All process.env keys:', Object.keys(process.env).filter(key => key.startsWith('REACT_APP_')));
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/news`,
