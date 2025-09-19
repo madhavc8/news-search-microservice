@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Create axios instance with base configuration
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api/v1';
+// Temporary hardcode for testing - REMOVE AFTER TESTING
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://web-production-b8252.up.railway.app/api/v1';
 
 // Debug: Log the API base URL being used
 console.log('🚀 API_BASE_URL:', API_BASE_URL);
