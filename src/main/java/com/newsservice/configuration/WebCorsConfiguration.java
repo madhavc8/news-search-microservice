@@ -15,7 +15,7 @@ import java.util.List;
  * Allows frontend applications to make cross-origin requests
  */
 @Configuration
-public class CorsConfiguration {
+public class WebCorsConfiguration {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
