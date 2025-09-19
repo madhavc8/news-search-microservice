@@ -2,10 +2,10 @@ services:
   - type: web
     name: news-search-microservice
     env: java
+    region: oregon
+    plan: free
     buildCommand: mvn clean package -DskipTests
     startCommand: java -jar target/news-search-microservice-1.0.0.jar
-    plan: free
-    dockerfilePath: ""
     envVars:
       - key: PORT
         value: 10000
@@ -15,5 +15,3 @@ services:
         value: prod
       - key: JAVA_OPTS
         value: "-Xmx512m -Xms256m"
-      - key: SERVER_PORT
-        value: 10000
