@@ -2,6 +2,14 @@ import axios from 'axios';
 
 // Create axios instance with base configuration
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api/v1';
+
+// Debug: Log the API base URL being used
+console.log('🚀 API_BASE_URL:', API_BASE_URL);
+console.log('🌍 Environment variables:', {
+  NODE_ENV: process.env.NODE_ENV,
+  REACT_APP_API_BASE_URL: process.env.REACT_APP_API_BASE_URL
+});
+
 const api = axios.create({
   baseURL: `${API_BASE_URL}/news`,
   timeout: 30000,
