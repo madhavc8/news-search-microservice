@@ -19,8 +19,11 @@ public class WebCorsConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Allow all origins for development
+        // Allow specific origins including Vercel
         configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedOriginPattern("https://news-search-microservice.vercel.app");
+        configuration.addAllowedOriginPattern("https://*.vercel.app");
+        configuration.addAllowedOriginPattern("http://localhost:3000");
         
         // Allow specific HTTP methods
         configuration.setAllowedMethods(Arrays.asList(

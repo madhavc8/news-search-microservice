@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // Create axios instance with base configuration
 // Temporary hardcode for testing - REMOVE AFTER TESTING
-// Using HTTP instead of HTTPS to bypass SSL certificate issues
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://web-production-b8252.up.railway.app/api/v1';
+// Railway URL with full context path
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://web-production-b8252.railway.app/api/v1';
 
 // Debug: Log the API base URL being used
 console.log('🚀 API_BASE_URL:', API_BASE_URL);
