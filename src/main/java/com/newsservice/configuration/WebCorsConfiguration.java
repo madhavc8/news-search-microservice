@@ -25,6 +25,9 @@ public class WebCorsConfiguration {
         configuration.addAllowedOriginPattern("https://*.vercel.app");
         configuration.addAllowedOriginPattern("http://localhost:3000");
         
+        // Debug: Log CORS configuration
+        System.out.println("CORS: Allowing all origin patterns including Vercel domains");
+        
         // Allow specific HTTP methods
         configuration.setAllowedMethods(Arrays.asList(
             "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"
