@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 // Create axios instance with base configuration
-// Temporary hardcode for testing - REMOVE AFTER TESTING
+// FORCE CORRECT URL - bypassing environment variable cache issue
 // Railway URL with full context path (corrected with "up." subdomain)
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://web-production-b8252.up.railway.app/api/v1';
+const API_BASE_URL = 'https://web-production-b8252.up.railway.app/api/v1';
 
 // Debug: Log the API base URL being used
 console.log('🚀 API_BASE_URL:', API_BASE_URL);
@@ -12,6 +12,7 @@ console.log('🌍 Environment variables:', {
   REACT_APP_API_BASE_URL: process.env.REACT_APP_API_BASE_URL
 });
 console.log('🔍 All process.env keys:', Object.keys(process.env).filter(key => key.startsWith('REACT_APP_')));
+console.log('🔄 Force rebuild to clear Vercel cache - timestamp:', new Date().toISOString());
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/news`,
